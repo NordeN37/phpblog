@@ -62,24 +62,30 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\categories  $categories
+     * @param  \App\categories  $category
      * @return \Illuminate\Http\Response
      */
-    public function edit(categories $categories)
+    public function edit(categories $category)
     {
-        //
+        //редактирование категорий
+        return view('admin.categories.edit', [
+            'category'  => $category,
+            'categories'=> \App\categories::with('children')->where('parent_id', '0')->get(),
+            'delimiter' => '',
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\categories  $categories
+     * @param  \App\categories  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, categories $categories)
+    public function update(Request $request, categories $category)
     {
-        //
+        $category->update($request->except('slug'));
+        return redirect()->route('admin.category.index');
     }
 
     /**
