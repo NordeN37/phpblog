@@ -19,9 +19,9 @@
         <tbody>
         @forelse($categories as $category)
                 <tr>
-                    <td>{{$category->categories}}</td>
+                    <td>{{$category->title}}</td>
                     <td>{{$category->published}}</td>
-                    <td><a href="{{route('admin.category.edit', ['id'=>$category->id])}}"><i class="fa fa-edit"></i></a></td>
+                    <td><a href="{{route('admin.category.edit', $category->id)}}"><i class="fa fa-edit"></i></a></td>
 
                 </tr>
             @empty

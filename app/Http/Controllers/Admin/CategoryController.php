@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\categories;
 use Illuminate\Http\Request;
 
+
 class CategoryController extends Controller
 {
     /**
@@ -28,18 +29,23 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+       return view('admin.categories.create', [
+           'category'  => [],
+           'categories'=> \App\categories::with('children')->where('parent_id', '0')->get(),
+           'delimiter' => '',
+       ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(Request $request)
     {
-        //
+        categories::create($request->all());
+        return redirect()->route('admin.category.index');
     }
 
     /**
